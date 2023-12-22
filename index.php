@@ -52,8 +52,6 @@
     <script src="validation/validscript.js"></script>
     <script>
         document.getElementById("submit").onclick = function(){
-            let startTime = performance.now();
-
             var v = ValidScript();
             v.validGroup('.my-input', [
                 {
@@ -69,7 +67,7 @@
                     label: 'E-Mel'
                 },
             ]);
-            v.validInt('.my-input2', 'Umur');
+            v.validInt('.my-input2', 'Age');
             v.validEmail('.my-input4', 'Some');
             v.pass(true, function(){
                 alert(2);

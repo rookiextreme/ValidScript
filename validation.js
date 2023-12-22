@@ -59,10 +59,6 @@ Validation.prototype = {
             }
         }
     },
-    validNullable: function(selector){
-        this.setValue(selector);
-        return this;
-    },
     validMix: function(selector){
         this.runValidation(selector, label, this.getValue(selector), ValidRxp.Mix);
         return this;
