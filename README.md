@@ -12,6 +12,16 @@ To use:
 - Start using!
 
 # USAGE<br>
+## SETUP YOUR INPUT GROUP
+```
+
+<div class="form-group vals-row"> <----Add vals-row
+    <input type="text" name="my_input" class="my-input" id="my-input">
+    <span class="invalid-feedback"></span>  <----Add span with invalid-feedback class
+</div>
+```
+
+
 ## Initialize ValidScript Within your script file or your "<script></script>", 
 
 `var v = ValidScript();`
