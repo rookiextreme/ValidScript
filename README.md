@@ -2,7 +2,7 @@
 Vanilla JS Simple Validation Script <br>
 
 > [!WARNING]
-> This library is still under development. However you may use if you want.
+> This library is still under development. However you may use if you want. This is just for fun.
 
 
 To use:
