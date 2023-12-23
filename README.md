@@ -73,6 +73,19 @@ v.pass();
 //If false, it will not run the code below v.pass()
 ```
 
+## METHOD CHAIN
+```
+//You may validate as such
+v.validMix();
+v.validInt();
+
+//OR
+v.validMix().validInt().validRegularDate().validInt().pass();
+
+//You may continue validating even after pass()
+v.pass().validInt() 
+```
+
 ## VALIDATION TYPES AVAILABLE AS OF NOW
 ```
 v.validMix(selector, label); //Anything but must have a value

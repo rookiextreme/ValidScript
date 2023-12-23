@@ -58,6 +58,8 @@ Validation.prototype = {
                 alert('Validation Failed');
             }
         }
+
+        return this;
     },
     validMix: function(selector){
         this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.Mix, key);
