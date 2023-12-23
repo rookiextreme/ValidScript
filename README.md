@@ -59,6 +59,8 @@ v.validInt('input[name=my_input]', 'Age', 'my_input');
 
 ## VALIDATION RESULT
 ```
+//Both ways return true if all validation are OK, else false
+
 //CUSTOM if you want to handle error with a different response
 v.pass(true, function(){
     //CUSTOM ERROR
@@ -66,6 +68,9 @@ v.pass(true, function(){
 
 //BASIC if validation fails, will just show an alert
 v.pass();
+
+//Your logic or such below if v.pass() is true
+//If false, it will not run the code below v.pass()
 ```
 
 ## VALIDATION TYPES AVAILABLE AS OF NOW
