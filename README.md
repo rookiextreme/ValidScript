@@ -20,7 +20,7 @@ To use:
 </div>
 ```
 
-## INITIALIZE VALIDSCRIPT WITHIN YOUR SCRIPT FILE OR YOUR  `<script></script>`
+## INITIALIZE VALIDSCRIPT WITHIN YOUR SCRIPT FILE OR YOUR  <br> `<script></script>`
 
 `var v = ValidScript();`
 
