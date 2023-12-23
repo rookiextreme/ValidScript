@@ -11,39 +11,7 @@
         <span class="invalid-feedback"></span>
     </div>
     <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input2" id="my-input2"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input4" id="my-input4"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input5" id="my-input5"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input5" id="my-input5"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input6" id="my-input5"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input7" id="my-input5"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input8" id="my-input5"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input9" id="my-input5"><br>
-        <span class="invalid-feedback"></span>
-    </div>
-    <div class="form-group vals-row">
-        <input type="text" name="my_input" class="my-input10" id="my-input5"><br>
+        <input type="file" name="my-file" class="my-file" id="my-file"><br>
         <span class="invalid-feedback"></span>
     </div>
     <br>
@@ -67,11 +35,13 @@
             //         label: 'E-Mel'
             //     },
             // ]);
-            v.validInt('input[name=my_input]', 'Age', 'my_input');
+            // v.validInt('input[name=my_input]', 'Age', 'my_input');
+            // v.validUpload('#my-file', 'File', ['pdf'], 'my_file');
             // v.validEmail('.my-input4', 'Some');
             // v.pass(true, function(){
             //     alert(2);
             // });
+            console.log(v.getFormData.entries)
         }
     </script>
 </body>

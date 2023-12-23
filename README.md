@@ -45,14 +45,20 @@ v.validGroup('.my-input', [
 ## VALIDATE INPUT WITH ONE VALIDATION TYPES
 
 ```
-//format v.validInt(selector,  label, key) <---- key parameter is OPTIONAL
+//format v.validInt(selector,  label, key) <---- key parameter is OPTIONAL, label set to null if not needed
 v.validInt('.my-input2', 'Umur');
+```
+## VALIDATE INPUT FOR FILE UPLOAD
+```
+//format v.validUpload(selector, label, extension_array, key) <---- extension_array [] (default) AND key MUST be included, label if not needed, set to null
+//extension_array, [] if any extension is accepted, ['pdf', 'doc'] array will check against file extensions
+v.validUpload('#my-file', 'File', ['pdf'], 'my_file');
 ```
 
 ## VALIDATE INPUT WITH USING INPUT NAME OR SUCH
 
 ```
-//format v.validInt(selector,  label, key) <---- key parameter MUST be included
+//format v.validInt(selector,  label, key) <---- key parameter MUST be included, label set to null if not needed
 v.validInt('input[name=my_input]', 'Age', 'my_input');
 ```
 
@@ -96,6 +102,7 @@ v.validReverseDate(selector, label); // 2020-01-02
 v.validRegularDate(selector, label); // 02-01-2020
 v.validDoubleInt(selector, label); // 1 or 2.5
 v.validDateAndTime(selector, label); // 2020-01-02 H:i:s
+v.validUpload(selector, label, extension_array, key);
 
 v.validGroup(selector, []); // Any data, must supply an array of validation objects
 //Objects format

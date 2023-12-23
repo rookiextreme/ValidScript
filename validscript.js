@@ -97,6 +97,10 @@ Validation.prototype = {
         this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.DateAndTime, key);
         return this;
     },
+    validUpload: function(selector, label = null, key = false){
+        this.runValidationUpload(selector, label, key);
+        return this;
+    },
     validGroup: function(selector, group = [], key = false){
         let erMsg = '';
         let grp_length = group.length;
@@ -135,22 +139,14 @@ Validation.prototype = {
             return this;
         }
     },
-    keyFormat:function(selector){
-        return selector.replace(/[-]+/g, '_').replace(/[.]+/g, '').replace(/[#]+/g, '');
-    },
-    getValue: function(selector, key = false){
-        if((selector.match(/[#]/g) || []).length == 1){
-            return document.getElementById(selector.replace('#','')).value;
-        }else if((selector.match(/[.]/g) || []).length == 1){
-            return document.getElementsByClassName(selector.replace('.',''))[0].value;
+    checkEmpty: function(selector, getVal){
+        if(getVal == '' || typeof getVal == undefined || typeof getVal == 'undefined'){
+            console.log('ok');
+            this.erDisplay(selector, '', 'Cannot Be Empty');
+            return true;
         }else{
-            if(key){
-                return document.querySelector(selector).value;
-            }
+            return false;
         }
-    },
-    setValue: function(selector, key = false){
-        this.validData.append(key ? key : this.keyFormat(selector), this.getValue(selector));
     },
     runValidation: function(selector, label, getVal , type, key = false){
         let override = type.override;
@@ -159,11 +155,7 @@ Validation.prototype = {
             this.formPass = false;
             return;
         }
-        console.log(selector);
-        console.log(label);
-        console.log(getVal);
-        console.log(type);
-        console.log(key);
+
         if(override == false){
             this.clearErDisplay(selector);
             let testValue = getVal.match(type.regex);
@@ -172,13 +164,30 @@ Validation.prototype = {
             this.setValue(selector);
         }
     },
-    checkEmpty: function(selector, getVal){
-        if(getVal == '' || typeof getVal == undefined){
-            this.erDisplay(selector, '', 'Cannot Be Empty');
-            return true;
-        }else{
-            return false;
+    runValidationUpload: function(selector, label = null, extensions = [], key){
+        let getVal = document.querySelector(selector).files[0];
+        let e = this.checkEmpty(selector, getVal);
+
+        if(e){
+            this.formPass = false;
+            return this;
         }
+
+        if(extensions.length > 0){
+            let fileName = getVal.name;
+            let extension = fileName.split('.').pop();
+            if(extensions.includes(extension)){
+                this.setValue(selector, key, true);
+                this.clearErDisplay(selector);
+            }else{
+                this.formPass = false;
+                this.erDisplay(selector, label, ' Extension Not Valid');
+            }
+        }else{
+            this.setValue(selector, key, true);
+        }
+
+        return this;
     },
     erDisplay: function(selector, label, message){
         if(label == '' || typeof label == undefined){
@@ -193,6 +202,32 @@ Validation.prototype = {
     clearErDisplay: function(selector){
         let iv_selector = this.getInvalidElement(selector);
         iv_selector.innerHTML = '';
+    },
+    keyFormat:function(selector){
+        return selector.replace(/[-]+/g, '_').replace(/[.]+/g, '').replace(/[#]+/g, '');
+    },
+    getValue: function(selector, key = false, upload = false){
+        if((selector.match(/[#]/g) || []).length == 1){
+            if(upload){
+                return document.getElementById(selector.replace('#','')).files[0];
+            }
+            return document.getElementById(selector.replace('#','')).value;
+        }else if((selector.match(/[.]/g) || []).length == 1){
+            if(upload){
+                return document.getElementsByClassName(selector.replace('.',''))[0].files[0];
+            }
+            return document.getElementsByClassName(selector.replace('.',''))[0].value;
+        }else{
+            if(key){
+                if(upload){
+                    return document.querySelector(selector).files[0];
+                }
+                return document.querySelector(selector).value;
+            }
+        }
+    },
+    setValue: function(selector, key = false, upload = false){
+        this.validData.append(key ? key : this.keyFormat(selector), this.getValue(selector, key, upload));
     },
     getInvalidElement: function(selector){
         return document.querySelector(selector).closest('.vals-row').querySelector('.invalid-feedback');
