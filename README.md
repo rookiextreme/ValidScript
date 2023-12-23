@@ -46,7 +46,15 @@ v.validGroup('.my-input', [
 ## VALIDATE INPUT WITH ONE VALIDATION TYPES
 
 ```
+//format v.validInt(selector,  label, key) <---- key parameter is OPTIONAL
 v.validInt('.my-input2', 'Umur');
+```
+
+## VALIDATE INPUT WITH USING INPUT NAME OR SUCH
+
+```
+//format v.validInt(selector,  label, key) <---- key parameter MUST be included
+v.validInt('input[name=my_input]', 'Age', 'my_input');
 ```
 
 ## VALIDATION RESULT

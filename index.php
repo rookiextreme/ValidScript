@@ -49,29 +49,29 @@
     <br>
     <button id="submit">Submit</button>
 
-    <script src="validation/validscript.js"></script>
+    <script src="../ValidScript/validscript.js"></script>
     <script>
         document.getElementById("submit").onclick = function(){
             var v = ValidScript();
-            v.validGroup('.my-input', [
-                {
-                    type: ValidRxp.String,
-                    label: 'Nama'
-                },
-                {
-                    type: ValidRxp.Int,
-                    label: 'Umur'
-                },
-                {
-                    type: ValidRxp.Email,
-                    label: 'E-Mel'
-                },
-            ]);
-            v.validInt('.my-input2', 'Age');
-            v.validEmail('.my-input4', 'Some');
-            v.pass(true, function(){
-                alert(2);
-            });
+            // v.validGroup('.my-input', [
+            //     {
+            //         type: ValidRxp.String,
+            //         label: 'Nama'
+            //     },
+            //     {
+            //         type: ValidRxp.Int,
+            //         label: 'Umur'
+            //     },
+            //     {
+            //         type: ValidRxp.Email,
+            //         label: 'E-Mel'
+            //     },
+            // ]);
+            v.validInt('input[name=my_input]', 'Age', 'my_input');
+            // v.validEmail('.my-input4', 'Some');
+            // v.pass(true, function(){
+            //     alert(2);
+            // });
         }
     </script>
 </body>

@@ -60,42 +60,42 @@ Validation.prototype = {
         }
     },
     validMix: function(selector){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.Mix);
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.Mix, key);
         return this;
     },
-    validString: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.String);
+    validString: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.String, key);
         return this;
     },
-    validInt: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.Int);
+    validInt: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.Int, key);
         return this;
     },
-    validDouble: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.Double);
+    validDouble: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.Double, key);
         return this;
     },
-    validEmail: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.Email);
+    validEmail: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.Email, key);
         return this;
     },
-    validReverseDate: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.ReverseDate);
+    validReverseDate: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.ReverseDate, key);
         return this;
     },
-    validRegularDate: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.RegularDate);
+    validRegularDate: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.RegularDate, key);
         return this;
     },
-    validDoubleInt: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.MixDoubleInt);
+    validDoubleInt: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.MixDoubleInt, key);
         return this;
     },
-    validDateAndTime: function(selector, label = null){
-        this.runValidation(selector, label, this.getValue(selector), ValidRxp.DateAndTime);
+    validDateAndTime: function(selector, label = null, key = false){
+        this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.DateAndTime, key);
         return this;
     },
-    validGroup: function(selector, group = []){
+    validGroup: function(selector, group = [], key = false){
         let erMsg = '';
         let grp_length = group.length;
         let getVal = this.getValue(selector);
@@ -136,28 +136,36 @@ Validation.prototype = {
     keyFormat:function(selector){
         return selector.replace(/[-]+/g, '_').replace(/[.]+/g, '').replace(/[#]+/g, '');
     },
-    getValue: function(selector){
+    getValue: function(selector, key = false){
         if((selector.match(/[#]/g) || []).length == 1){
             return document.getElementById(selector.replace('#','')).value;
         }else if((selector.match(/[.]/g) || []).length == 1){
             return document.getElementsByClassName(selector.replace('.',''))[0].value;
+        }else{
+            if(key){
+                return document.querySelector(selector).value;
+            }
         }
     },
-    setValue: function(selector){
-        this.validData.append(this.keyFormat(selector), this.getValue(selector));
+    setValue: function(selector, key = false){
+        this.validData.append(key ? key : this.keyFormat(selector), this.getValue(selector));
     },
-    runValidation: function(selector, label, getVal , type){
+    runValidation: function(selector, label, getVal , type, key = false){
         let override = type.override;
         let e = this.checkEmpty(selector, getVal);
         if(e){
             this.formPass = false;
             return;
         }
-
+        console.log(selector);
+        console.log(label);
+        console.log(getVal);
+        console.log(type);
+        console.log(key);
         if(override == false){
             this.clearErDisplay(selector);
             let testValue = getVal.match(type.regex);
-            testValue == null ? this.erDisplay(selector, label, type.label) : this.setValue(selector);
+            testValue == null ? this.erDisplay(selector, label, type.label) : this.setValue(selector, key);
         }else{
             this.setValue(selector);
         }
