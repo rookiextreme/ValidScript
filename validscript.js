@@ -234,6 +234,9 @@ Validation.prototype = {
     },
     getFormData: function(){
         return this.validData;
+    },
+    setNewEntry: function(key, value){
+        this.getFormData.append(key, value);
     }
 }
 

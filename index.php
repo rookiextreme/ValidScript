@@ -41,6 +41,7 @@
             // v.pass(true, function(){
             //     alert(2);
             // });
+            // v.setNewEntry('someKey', 'someValue');
             console.log(v.getFormData.entries)
         }
     </script>

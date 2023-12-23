@@ -112,6 +112,21 @@ v.validGroup(selector, []); // Any data, must supply an array of validation obje
 }
 ```
 
+## ADD NEW ENTRY IN FORMDATA
+```
+//no validation
+v.setNewEntry('someKey', 'someValue');
+```
+
+## AJAX REQUEST
+```
+//within ajax request data
+
+...ajax(){
+    data: v.getFormData()
+}
+```
+
 ## REGEX OPTION AVAILABLE AS OF NOW
 ```
 ValidRxp.Mix
