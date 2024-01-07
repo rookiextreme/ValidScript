@@ -45,7 +45,7 @@ const ValidRxp = {
 }
 
 function Validation(){
-    this.validData = new FormData;
+    this.validData = CommonInit().emptyForm();
     this.formPass = true;
 }
 
@@ -55,13 +55,18 @@ Validation.prototype = {
             if(custom){
                 func();
             }else{
-                alert('Validation Failed');
+                ToastsInit().show({
+                    title: 'WHOOPS!',
+                    type: 'danger',
+                    message: 'Please Fill In Required Details'
+                });
+                throw new Error("Something Went Wrong. Check Your Fields");
             }
         }
-
+        
         return this;
     },
-    validMix: function(selector){
+    validMix: function(selector, label = null, key = false){
         this.runValidation(selector, label, this.getValue(selector, key), ValidRxp.Mix, key);
         return this;
     },
@@ -141,7 +146,6 @@ Validation.prototype = {
     },
     checkEmpty: function(selector, getVal){
         if(getVal == '' || typeof getVal == undefined || typeof getVal == 'undefined'){
-            console.log('ok');
             this.erDisplay(selector, '', 'Cannot Be Empty');
             return true;
         }else{
@@ -161,6 +165,7 @@ Validation.prototype = {
             let testValue = getVal.match(type.regex);
             testValue == null ? this.erDisplay(selector, label, type.label) : this.setValue(selector, key);
         }else{
+            this.clearErDisplay(selector);
             this.setValue(selector);
         }
     },
@@ -195,12 +200,14 @@ Validation.prototype = {
         }
 
         let iv_selector = this.getInvalidElement(selector);
+        document.querySelector(selector).classList.add('is-invalid');
         iv_selector.innerHTML = '';
         iv_selector.innerHTML = label + ' ' + message;
-        iv_selector.setAttribute('style', 'color:red');
+        iv_selector.setAttribute('style', 'color: #ea5455;display:block !important');
     },
     clearErDisplay: function(selector){
         let iv_selector = this.getInvalidElement(selector);
+        document.querySelector(selector).classList.remove('is-invalid');
         iv_selector.innerHTML = '';
     },
     keyFormat:function(selector){
@@ -236,7 +243,7 @@ Validation.prototype = {
         return this.validData;
     },
     setNewEntry: function(key, value){
-        this.getFormData.append(key, value);
+        this.validData.append(key, value);
     }
 }
 
